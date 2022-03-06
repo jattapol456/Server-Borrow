@@ -22,6 +22,9 @@ export class Item {
   img: string;
 
   @Prop()
+  statusitem: string;
+
+  @Prop()
   problem: string[];
 }
 

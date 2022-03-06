@@ -8,25 +8,34 @@ import { Item, ItemDocument } from 'src/modules/item/item.schema';
 export class ItemService {
   constructor(@InjectModel(Item.name) private ItemModel: Model<ItemDocument>) {}
   async create(createItemDto: CreateTtemDto) {
-      return this.ItemModel.create(createItemDto)
+    return this.ItemModel.create(createItemDto);
   }
 
-  async findAll(){
-      return this.ItemModel.find()
-  }
-  
-  async findById(id:string){
-      return this.ItemModel.findById(id)
+  async findAll() {
+    return this.ItemModel.find();
   }
 
-  async updateById(id:string,updateItemDto:UpdateItemDto){
-    await this.ItemModel.updateOne({_id:id},{$set:updateItemDto})
-    return this.ItemModel.findById(id)
+  async findById(id: string) {
+    return this.ItemModel.findById(id);
   }
 
-  async deleteById(id:string){
-      await this.ItemModel.deleteOne({_id:id})
-      return
+  async updateById(id: string, updateItemDto: UpdateItemDto) {
+    await this.ItemModel.updateOne({ _id: id }, { $set: updateItemDto });
+    return this.ItemModel.findById(id);
+  }
+
+  async deleteById(id: string) {
+    await this.ItemModel.deleteOne({ _id: id });
+    return;
+  }
+
+  async findsearch(search: string) {
+    return await this.ItemModel.find({
+      $or: [
+        { name: { $regex: new RegExp(search,"i") } },
+        { model: { $regex: new RegExp(search,"i") } },
+        { brand: { $regex: new RegExp(search,"i") } },
+      ],
+    });
   }
 }
-

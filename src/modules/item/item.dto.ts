@@ -4,6 +4,7 @@ export class CreateTtemDto {
     brand: string;
     code_ip: string;
     img: string;
+    statusitem: string;
     problem?: string[];
 }
 export class UpdateItemDto {
@@ -13,5 +14,9 @@ export class UpdateItemDto {
     brand: string;
     code_ip: string;
     img: string;
+    statusitem: string;
     problem?: string[];
+}
+export class BorrowItemDto {
+    
 }

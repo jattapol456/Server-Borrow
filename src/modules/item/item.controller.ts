@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request } from "@nestjs/common";
 import { CreateTtemDto, UpdateItemDto } from "./item.dto";
 import { ItemService } from "./item.service";
 
@@ -25,6 +25,11 @@ export class ItemController{
     @Delete(":id")
     deleteById(@Param("id") id :string){
         return this.itemService.deleteById(id)
+    }
+    
+    @Get("/search/:search")
+    findsearch(@Param("search") search: string){
+        return this.itemService.findsearch(search)
     }
 
 }
