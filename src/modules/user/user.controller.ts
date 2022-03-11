@@ -32,7 +32,7 @@ export class UserController{
         const jwt = require('jsonwebtoken');
         const user = await this.UserService.findByEmail(body.email)
         if(!user||!(await bcrypt.compare(body.password,user.password))){
-            return "not"
+            return "not have token"
         }
         const token = jwt.sign({_id:user.id},"secret")
         return {token, user}
