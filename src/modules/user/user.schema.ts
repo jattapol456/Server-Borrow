@@ -35,6 +35,10 @@ export class User {
 
   @Prop()
   profileimg: string;
+
+  @Prop({default: "User"})
+  role: string;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -10,6 +10,15 @@ export class ItemController{
     findAll(){
         return this.itemService.findAll()
     }
+    @Get("/search/:search")
+    findsearch(@Param("search") search: string){
+        return this.itemService.findsearch(search)
+    }
+
+    @Get("/frequent")
+    frequent() {
+        return this.itemService.frequent()
+    }
     @Get(":id")
     findById(@Param("id") id :string){
         return this.itemService.findById(id)
@@ -27,9 +36,6 @@ export class ItemController{
         return this.itemService.deleteById(id)
     }
     
-    @Get("/search/:search")
-    findsearch(@Param("search") search: string){
-        return this.itemService.findsearch(search)
-    }
+   
 
 }

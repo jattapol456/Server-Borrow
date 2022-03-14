@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ItemModule } from './modules/item/item.module';
 import { UserModule } from './modules/user/user.module';
 import { BorrowModule } from './modules/borrow/borrow.module';
+// import { NotiModule } from './modules/noti/noti.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { BorrowModule } from './modules/borrow/borrow.module';
     ItemModule,
     UserModule,
     BorrowModule,
+    // NotiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

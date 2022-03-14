@@ -35,5 +35,14 @@ export class Borrow {
   
   @Prop()
   timereturnrequest: string;
+  
+  @Prop()
+  update: Date;
+  
+  @Prop()
+  adminShowNoti: boolean;
+
+  @Prop()
+  userShowNoti: boolean;
 }
 export const BorrowSchema = SchemaFactory.createForClass(Borrow);

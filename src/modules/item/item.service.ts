@@ -32,10 +32,41 @@ export class ItemService {
   async findsearch(search: string) {
     return await this.ItemModel.find({
       $or: [
-        { name: { $regex: new RegExp(search,"i") } },
-        { model: { $regex: new RegExp(search,"i") } },
-        { brand: { $regex: new RegExp(search,"i") } },
+        { name: { $regex: new RegExp(search, 'i') } },
+        { model: { $regex: new RegExp(search, 'i') } },
+        { brand: { $regex: new RegExp(search, 'i') } },
       ],
     });
+  }
+  async frequent() {
+    return this.ItemModel.aggregate([
+      {
+        $lookup: {
+          from: 'borrows',
+          localField: '_id',
+          foreignField: 'item_id',
+          as: 'borrows',
+        },
+      },
+      {
+        $addFields: {
+          count: {
+            $size: '$borrows',
+          },
+        },
+      },
+      {
+        $sort: {
+          count: -1,
+        },
+      },
+      {
+        $match: {
+          count: {
+            $gt: 0,
+          },
+        },
+      },
+    ]);
   }
 }

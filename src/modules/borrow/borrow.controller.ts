@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Request } from "@nestjs/common";
+import { get } from "http";
 import { CreateBorrowDto, UpdateBorrowDto } from "./borrow.dto";
 import { BorrowService } from "./borrow.service";
 
@@ -25,6 +26,17 @@ export class BorrowController{
     adminfindItemreturn(){
         return this.borrowService.adminfindItemreturn()
     }
+    @Get("adminnoti")
+    admingetnoti() {
+        return this.borrowService.admingetnoti()
+    }
+
+    @Get("usernoti")
+    usernoti(@Request() req) {
+        const jwt = require('jsonwebtoken');
+        const res = jwt.verify(req.headers.authorization.split(" ")[1],"secret")
+        return this.borrowService.usergetnoti(res._id)
+    }
     
     @Get("/borrowByItemId/:id")
     borrowByItemId(@Param("id") id :string){
@@ -45,8 +57,18 @@ export class BorrowController{
     @Patch("adminstatus/:id")
     update(@Param("id") id :string, @Request() req, @Body() body:UpdateBorrowDto) {
         return this.borrowService.update(id, body)
-    }
-    
+    } 
+
+    @Delete("adminnoti/:id")
+    admindeletenoti(@Param("id") id :string) {
+        return this.borrowService.admindeletenoti(id)
+    } 
+
+    @Delete("usernoti/:id")
+    userdeletenoti(@Param("id") id :string) {
+        return this.borrowService.userdeletenoti(id)
+    } 
+
     @Delete(":id")
     deleteById(@Param("id") id :string){
         return this.borrowService.deleteById(id)
